@@ -1,0 +1,22 @@
+<aside class="sidebar" id="sidebar">
+  <a class="brand" href="/"><span class="brand-icon"><i class="bi bi-wallet2"></i></span><span><strong>Student Wallet</strong><small>QUẢN LÝ TÀI CHÍNH CÁ NHÂN</small></span></a>
+  <div class="nav-label">TỔNG QUAN</div><nav class="side-nav">
+    <a class="nav-item <%= active==='dashboard'?'active':'' %>" href="/"><i class="bi bi-grid-1x2-fill"></i><span>Tổng quan</span></a>
+  </nav>
+  <div class="nav-label">QUẢN LÝ TIỀN</div><nav class="side-nav">
+    <a class="nav-item <%= active==='transactions'?'active':'' %>" href="/transactions"><i class="bi bi-arrow-left-right"></i><span>Thu & chi</span></a>
+    <a class="nav-item <%= active==='categories'?'active':'' %>" href="/categories"><i class="bi bi-grid"></i><span>Danh mục</span></a>
+    <a class="nav-item <%= active==='budgets'?'active':'' %>" href="/budgets"><i class="bi bi-pie-chart"></i><span>Ngân sách</span></a>
+    <a class="nav-item <%= active==='goals'?'active':'' %>" href="/goals"><i class="bi bi-bullseye"></i><span>Mục tiêu tiết kiệm</span></a>
+  </nav>
+  <div class="nav-label">THEO DÕI</div><nav class="side-nav">
+    <a class="nav-item <%= active==='reports'?'active':'' %>" href="/reports"><i class="bi bi-bar-chart-line"></i><span>Báo cáo & phân tích</span></a>
+    <a class="nav-item <%= active==='activity'?'active':'' %>" href="/activity"><i class="bi bi-clock-history"></i><span>Lịch sử hoạt động</span></a>
+  </nav>
+  <div class="sidebar-bottom"><div class="tip-card"><span class="tip-icon"><i class="bi bi-lightbulb"></i></span><strong>Mẹo nhỏ</strong><p>Ghi lại chi tiêu ngay sau khi phát sinh để không bỏ sót khoản nào nhé!</p></div><a class="nav-item <%= active==='settings'?'active':'' %>" href="/settings"><i class="bi bi-gear"></i><span>Tài khoản</span></a><div class="version">STUDENT WALLET <b>v2.0</b></div></div>
+</aside>
+<div class="app-shell"><header class="topbar">
+  <div class="top-left"><button class="icon-btn mobile-toggle" type="button" data-sidebar-toggle aria-label="Mở menu"><i class="bi bi-list"></i></button><div><div class="crumb">KHÔNG GIAN CÁ NHÂN <i class="bi bi-chevron-right"></i> <b><%= title %></b></div><div class="top-date"><i class="bi bi-calendar3"></i> <%= new Intl.DateTimeFormat('vi-VN',{weekday:'long',day:'2-digit',month:'long',year:'numeric',timeZone:'Asia/Ho_Chi_Minh'}).format(new Date()) %></div></div></div>
+  <div class="top-right"><a class="quick-add" href="/transactions/new"><i class="bi bi-plus-lg"></i><span>Thêm giao dịch</span></a><span class="top-divider"></span><div class="user-chip"><span class="avatar"><%= initials(currentUser?.fullName||'SV') %></span><span><b><%= currentUser?.fullName||'Sinh viên' %></b><small>Tài khoản cá nhân</small></span></div><form action="/logout" method="post"><button class="icon-btn" title="Đăng xuất" aria-label="Đăng xuất"><i class="bi bi-box-arrow-right"></i></button></form></div>
+</header><main class="main-content">
+<% if (flash) { %><div class="alert alert-<%= flash.type==='success'?'success':'error' %>"><i class="bi <%= flash.type==='success'?'bi-check-circle':'bi-exclamation-circle' %>"></i><span><%= flash.message %></span><button type="button" data-dismiss-alert aria-label="Đóng">×</button></div><% } %>

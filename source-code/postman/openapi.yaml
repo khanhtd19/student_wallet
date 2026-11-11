@@ -1,0 +1,43 @@
+openapi: 3.0.3
+info:
+  title: Student Wallet API
+  version: 2.0.0
+  description: API trạng thái sức khỏe và tổng hợp thu chi của người dùng đã đăng nhập.
+servers:
+  - url: http://localhost:3000
+components:
+  securitySchemes:
+    sessionCookie:
+      type: apiKey
+      in: cookie
+      name: dailybudget.sid
+  schemas:
+    Summary:
+      type: object
+      properties:
+        income: { type: number, example: 3500000 }
+        expense: { type: number, example: 1850000 }
+        balance: { type: number, example: 1650000 }
+paths:
+  /health:
+    get:
+      summary: Kiểm tra ứng dụng và kết nối database
+      responses:
+        '200':
+          description: Hoạt động bình thường
+  /api/summary:
+    get:
+      summary: Tổng hợp thu chi tháng hiện tại
+      security:
+        - sessionCookie: []
+      responses:
+        '200':
+          description: Số liệu tháng của tài khoản đang đăng nhập
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data: { $ref: '#/components/schemas/Summary' }
+        '401':
+          description: Chưa đăng nhập

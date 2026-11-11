@@ -1,0 +1,28 @@
+flowchart LR
+  Student([Sinh viên])
+  subgraph SW[Student Wallet - Quản lý chi tiêu hằng ngày]
+    A((Đăng ký / đăng nhập))
+    B((Ghi khoản thu))
+    C((Ghi khoản chi))
+    D((Quản lý danh mục))
+    E((Lập ngân sách tháng))
+    F((Theo dõi tiến độ ngân sách))
+    G((Quản lý mục tiêu tiết kiệm))
+    H((Xem dashboard))
+    I((Lọc và xuất giao dịch))
+    J((Xem báo cáo))
+    K((Quản lý hồ sơ / mật khẩu))
+  end
+  Student --> A
+  Student --> B
+  Student --> C
+  Student --> D
+  Student --> E
+  Student --> F
+  Student --> G
+  Student --> H
+  Student --> I
+  Student --> J
+  Student --> K
+  E --> F
+  I --> J

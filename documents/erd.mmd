@@ -1,0 +1,58 @@
+erDiagram
+  USERS ||--o{ CATEGORIES : owns
+  USERS ||--o{ TRANSACTIONS : records
+  USERS ||--o{ BUDGETS : plans
+  USERS ||--o{ SAVINGS_GOALS : sets
+  USERS ||--o{ AUDIT_LOGS : generates
+  CATEGORIES ||--o{ TRANSACTIONS : classifies
+  CATEGORIES ||--o{ BUDGETS : limits
+  USERS {
+    bigint id PK
+    varchar full_name
+    varchar email UK
+    varchar password_hash
+  }
+  CATEGORIES {
+    bigint id PK
+    bigint user_id FK
+    varchar name
+    varchar type
+    varchar icon
+    varchar color
+    boolean is_active
+  }
+  TRANSACTIONS {
+    bigint id PK
+    bigint user_id FK
+    bigint category_id FK
+    varchar type
+    varchar title
+    numeric amount
+    date transaction_date
+    varchar payment_method
+    varchar merchant
+    text note
+  }
+  BUDGETS {
+    bigint id PK
+    bigint user_id FK
+    bigint category_id FK
+    date month
+    numeric amount
+  }
+  SAVINGS_GOALS {
+    bigint id PK
+    bigint user_id FK
+    varchar title
+    numeric target_amount
+    numeric current_amount
+    date target_date
+    varchar status
+  }
+  AUDIT_LOGS {
+    bigint id PK
+    bigint user_id FK
+    varchar action
+    jsonb details
+    timestamptz created_at
+  }

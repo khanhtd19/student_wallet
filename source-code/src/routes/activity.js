@@ -1,0 +1,2 @@
+const express=require('express');const db=require('../config/database');const asyncHandler=require('../utils/async-handler');const {requireAuth}=require('../middleware/auth');const router=express.Router();router.use(requireAuth);
+router.get('/',asyncHandler(async(req,res)=>{const rows=await db.query('SELECT action,entity_type,details,created_at FROM audit_logs WHERE user_id=$1 ORDER BY created_at DESC LIMIT 100',[req.session.user.id]);res.render('activity/list',{title:'Lịch sử hoạt động',active:'activity',activities:rows.rows});}));module.exports=router;

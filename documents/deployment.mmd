@@ -1,0 +1,9 @@
+flowchart TB
+  Browser[Trình duyệt sinh viên]
+  subgraph Docker[Docker Compose - expense-network]
+    App[Application\nNode.js + Express + EJS\nPort 3000]
+    DB[(PostgreSQL 16\nPort nội bộ 5432)]
+    App -->|SQL qua service DNS database| DB
+    DB --- Volume[(Named volume\ndatabase-data)]
+  end
+  Browser -->|HTTP localhost:3000| App

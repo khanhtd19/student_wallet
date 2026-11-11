@@ -1,0 +1,18 @@
+{
+  "info": {
+    "name": "Student Wallet API",
+    "description": "Kiểm tra trạng thái ứng dụng và API tổng hợp thu chi.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health check",
+      "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/health" }
+    },
+    {
+      "name": "Monthly summary (requires login cookie)",
+      "request": { "method": "GET", "header": [], "url": "{{baseUrl}}/api/summary" }
+    }
+  ],
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:3000" }]
+}

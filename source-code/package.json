@@ -1,0 +1,28 @@
+{
+  "name": "student-daily-expense-manager",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Website quản lý chi tiêu hằng ngày của sinh viên",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "test": "node --test tests/*.test.js",
+    "lint:syntax": "node scripts/check-syntax.js",
+    "lint:templates": "node scripts/check-templates.js"
+  },
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-pg-simple": "^10.0.0",
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.1",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": { "nodemon": "^3.1.7" }
+}

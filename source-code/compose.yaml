@@ -1,0 +1,40 @@
+name: student-daily-expense
+services:
+  application:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DB_HOST: database
+      DB_PORT: 5432
+      TZ: Asia/Ho_Chi_Minh
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    depends_on:
+      database:
+        condition: service_healthy
+    networks: [expense-network]
+  database:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-student_expense}
+      POSTGRES_USER: ${DB_USER:-expense_app}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-change_me_db_password}
+      TZ: Asia/Ho_Chi_Minh
+      PGTZ: Asia/Ho_Chi_Minh
+    volumes:
+      - database-data:/var/lib/postgresql/data
+      - ./database/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./database/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-expense_app} -d ${DB_NAME:-student_expense}"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+    networks: [expense-network]
+volumes:
+  database-data:
+networks:
+  expense-network:
+    driver: bridge

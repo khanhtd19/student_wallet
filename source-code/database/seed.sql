@@ -1,0 +1,1 @@
+-- Demo account and categories are created by src/services/auth-service.js at startup.
