@@ -66,7 +66,7 @@ async function getDashboardAnalytics(db, userId, monthKey) {
     : monthKey > today.slice(0,7) ? 0 : null;
   const [monthlyResult, categoriesResult, dailyResult] = await Promise.all([
     db.query(`
-      SELECT to_char(m.month_start, 'YYYY-MM') month,
+        SELECT to_char(m.month_start, 'YYYY-MM') AS "month",
         COALESCE(SUM(t.amount) FILTER (WHERE t.type='INCOME'),0) income,
         COALESCE(SUM(t.amount) FILTER (WHERE t.type='EXPENSE'),0) expense
       FROM generate_series(($2::date - INTERVAL '11 months')::date, $2::date, INTERVAL '1 month') AS m(month_start)
@@ -82,8 +82,8 @@ async function getDashboardAnalytics(db, userId, monthKey) {
         AND t.transaction_date < ($2::date + INTERVAL '1 month')
       GROUP BY c.id ORDER BY amount DESC`, [userId, firstDay]),
     db.query(`
-      SELECT to_char(date_trunc('month', t.transaction_date), 'YYYY-MM') month,
-        EXTRACT(DAY FROM t.transaction_date)::int day,
+      SELECT to_char(date_trunc('month', t.transaction_date), 'YYYY-MM') AS "month",
+  EXTRACT(DAY FROM t.transaction_date)::int AS "day",
         COALESCE(SUM(t.amount) FILTER (WHERE t.type='INCOME'),0) income,
         COALESCE(SUM(t.amount) FILTER (WHERE t.type='EXPENSE'),0) expense
       FROM transactions t
