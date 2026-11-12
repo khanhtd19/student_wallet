@@ -1,5 +1,292 @@
-<%- include('../partials/head',{title}) %><%- include('../partials/header',{title,active}) %>
-<section class="page-heading"><div><div class="eyebrow">THÔNG TIN CÁ NHÂN</div><h1>Tài khoản của tôi</h1><p class="subtext">Quản lý thông tin và bảo vệ tài khoản Student Wallet.</p></div></section>
-<div class="two-column settings-grid"><section class="panel"><div class="panel-head"><div><h2>Thông tin cá nhân</h2><p class="subtext">Tên hiển thị trong không gian cá nhân.</p></div><span class="panel-icon"><i class="bi bi-person-vcard"></i></span></div><form class="stack-form" action="/settings/profile" method="post"><div class="field"><label>Họ và tên</label><input name="full_name" minlength="2" maxlength="120" required value="<%=profile.full_name%>"></div><div class="field"><label>Email đăng nhập</label><input value="<%=profile.email%>" readonly><small class="field-help">Email hiện chưa thể thay đổi.</small></div><div class="field"><label>Ngày tạo tài khoản</label><input value="<%=date(profile.created_at)%>" readonly></div><button class="btn btn-primary">Lưu thông tin</button></form></section>
-<section class="panel"><div class="panel-head"><div><h2>Đổi mật khẩu</h2><p class="subtext">Nên sử dụng mật khẩu riêng, có ít nhất 8 ký tự.</p></div><span class="panel-icon"><i class="bi bi-shield-lock"></i></span></div><form class="stack-form" action="/settings/password" method="post"><div class="field"><label>Mật khẩu hiện tại</label><input type="password" name="current_password" required autocomplete="current-password"></div><div class="field"><label>Mật khẩu mới</label><input type="password" name="new_password" required minlength="8" autocomplete="new-password"></div><div class="field"><label>Xác nhận mật khẩu mới</label><input type="password" name="confirm_password" required minlength="8" autocomplete="new-password"></div><button class="btn btn-primary">Cập nhật mật khẩu</button></form><div class="note-card"><i class="bi bi-lock"></i><p>Mỗi tài khoản chỉ xem được giao dịch, ngân sách và mục tiêu tiết kiệm của chính mình.</p></div></section></div>
+
+<%- include('../partials/head',{title}) %>
+<%- include('../partials/header',{title,active}) %>
+
+<section class="page-heading">
+  <div>
+    <div class="eyebrow">THÔNG TIN CÁ NHÂN</div>
+    <h1>Tài khoản của tôi</h1>
+    <p class="subtext">Quản lý thông tin và bảo vệ tài khoản Student Wallet.</p>
+  </div>
+</section>
+
+<div class="two-column settings-grid">
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>Thông tin cá nhân</h2>
+        <p class="subtext">Tên hiển thị trong không gian cá nhân.</p>
+      </div>
+      <span class="panel-icon"><i class="bi bi-person-vcard"></i></span>
+    </div>
+
+    <form class="stack-form" action="/settings/profile" method="post">
+      <div class="field">
+        <label>Họ và tên</label>
+        <input name="full_name" minlength="2" maxlength="120"
+               required value="<%= profile.full_name %>">
+      </div>
+
+      <div class="field">
+        <label>Email đăng nhập</label>
+        <input value="<%= profile.email %>" readonly>
+        <small class="field-help">Email hiện chưa thể thay đổi.</small>
+      </div>
+
+      <div class="field">
+        <label>Ngày tạo tài khoản</label>
+        <input value="<%= date(profile.created_at) %>" readonly>
+      </div>
+
+      <button class="btn btn-primary">Lưu thông tin</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>Đổi mật khẩu</h2>
+        <p class="subtext">Nên sử dụng mật khẩu riêng, có ít nhất 8 ký tự.</p>
+      </div>
+      <span class="panel-icon"><i class="bi bi-shield-lock"></i></span>
+    </div>
+
+    <form class="stack-form" action="/settings/password" method="post">
+      <div class="field">
+        <label>Mật khẩu hiện tại</label>
+        <input type="password" name="current_password"
+               required autocomplete="current-password">
+      </div>
+
+      <div class="field">
+        <label>Mật khẩu mới</label>
+        <input type="password" name="new_password"
+               required minlength="8" autocomplete="new-password">
+      </div>
+
+      <div class="field">
+        <label>Xác nhận mật khẩu mới</label>
+        <input type="password" name="confirm_password"
+               required minlength="8" autocomplete="new-password">
+      </div>
+
+      <button class="btn btn-primary">Cập nhật mật khẩu</button>
+    </form>
+
+    <div class="note-card">
+      <i class="bi bi-lock"></i>
+      <p>Mỗi tài khoản chỉ xem được giao dịch, ngân sách và mục tiêu tiết kiệm của chính mình.</p>
+    </div>
+  </section>
+</div>
+
+<section class="panel" style="margin-top:24px">
+  <div class="panel-head">
+    <div>
+      <h2>Sao lưu và khôi phục dữ liệu</h2>
+      <p class="subtext">
+        Xuất dữ liệu tài chính ra JSON hoặc chọn bản sao lưu để khôi phục.
+      </p>
+    </div>
+    <span class="panel-icon"><i class="bi bi-database-check"></i></span>
+  </div>
+
+  <div class="stack-form">
+    <div class="note-card">
+      <i class="bi bi-info-circle"></i>
+      <p>
+        File sao lưu gồm danh mục, giao dịch, ngân sách và mục tiêu tiết kiệm.
+        Không bao gồm mật khẩu hoặc thông tin đăng nhập.
+      </p>
+    </div>
+
+    <div class="field">
+      <label>Xuất dữ liệu</label>
+      <p class="subtext">Tải toàn bộ dữ liệu tài chính của tài khoản hiện tại.</p>
+      <a class="btn btn-primary" href="/settings/backup/export">
+        <i class="bi bi-download"></i> Tải bản sao lưu JSON
+      </a>
+    </div>
+
+    <div class="field">
+      <label for="backup-file">Chọn file JSON để khôi phục</label>
+      <input
+        id="backup-file"
+        type="file"
+        accept=".json,application/json"
+      >
+      <small class="field-help">
+        Chức năng khôi phục sẽ yêu cầu xác nhận và mật khẩu hiện tại.
+      </small>
+    </div>
+
+    <div id="backup-preview" class="note-card" hidden>
+      <p id="backup-preview-text"></p>
+    </div>
+
+<div class="field">
+  <label for="restore-current-password">Mật khẩu hiện tại</label>
+  <input
+    type="password"
+    id="restore-current-password"
+    class="form-control"
+    placeholder="Nhập mật khẩu tài khoản"
+    autocomplete="current-password"
+  >
+</div>
+
+<div class="field">
+  <label for="restore-confirmation">Nhập RESTORE để xác nhận</label>
+  <input
+    type="text"
+    id="restore-confirmation"
+    class="form-control"
+    placeholder="RESTORE"
+  >
+</div>
+
+
+    <button type="button" class="btn btn-primary" id="restore-backup-btn" disabled>
+  <i class="bi bi-arrow-counterclockwise"></i>
+  Khôi phục dữ liệu
+</button>
+  </div>
+</section>
+
+
+<script>
+(() => {
+  const fileInput = document.getElementById('backup-file');
+  const preview = document.getElementById('backup-preview');
+  const previewText = document.getElementById('backup-preview-text');
+  const restoreButton = document.getElementById('restore-backup-btn');
+
+  const passwordInput = document.getElementById('restore-current-password');
+  const confirmationInput = document.getElementById('restore-confirmation');
+
+  let selectedBackup = null;
+
+  // Doc va kiem tra file JSON
+  fileInput.addEventListener('change', async () => {
+    selectedBackup = null;
+    restoreButton.disabled = true;
+    preview.hidden = true;
+
+    const file = fileInput.files[0];
+
+    if (!file) return;
+
+    if (file.size > 5 * 1024 * 1024) {
+      preview.hidden = false;
+      previewText.textContent = 'File vượt quá giới hạn 5 MB.';
+      return;
+    }
+
+    try {
+      const content = await file.text();
+      const backup = JSON.parse(content);
+
+      if (
+        backup.app !== 'Student Wallet' ||
+        backup.version !== 1 ||
+        !backup.data ||
+        !Array.isArray(backup.data.categories) ||
+        !Array.isArray(backup.data.transactions) ||
+        !Array.isArray(backup.data.budgets) ||
+        !Array.isArray(backup.data.savingsGoals)
+      ) {
+        throw new Error('Cấu trúc file không hợp lệ.');
+      }
+
+      selectedBackup = backup;
+
+      previewText.textContent =
+        'File có cấu trúc hợp lệ: ' +
+        backup.data.categories.length + ' danh mục, ' +
+        backup.data.transactions.length + ' giao dịch, ' +
+        backup.data.budgets.length + ' ngân sách, ' +
+        backup.data.savingsGoals.length + ' mục tiêu tiết kiệm.';
+
+      preview.hidden = false;
+      restoreButton.disabled = false;
+
+    } catch (error) {
+      preview.hidden = false;
+      previewText.textContent = 'Không đọc được file: ' + error.message;
+    }
+  });
+
+  // Khoi phuc du lieu
+  restoreButton.addEventListener('click', async () => {
+    if (!selectedBackup) return;
+
+    const currentPassword = passwordInput.value;
+    const confirmation = confirmationInput.value;
+
+    if (!currentPassword) {
+      alert('Vui lòng nhập mật khẩu hiện tại.');
+      passwordInput.focus();
+      return;
+    }
+
+    if (confirmation !== 'RESTORE') {
+      alert('Vui lòng nhập chính xác RESTORE để xác nhận.');
+      confirmationInput.focus();
+      return;
+    }
+
+    const confirmed = confirm(
+      'CẢNH BÁO: Toàn bộ dữ liệu tài chính hiện tại sẽ được thay thế bằng dữ liệu trong file sao lưu. Bạn có chắc chắn muốn tiếp tục không?'
+    );
+
+    if (!confirmed) return;
+
+    restoreButton.disabled = true;
+    restoreButton.textContent = 'Đang khôi phục...';
+
+    try {
+      const response = await fetch('/settings/backup/restore', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'same-origin',
+        body: JSON.stringify({
+          backup: selectedBackup,
+          currentPassword,
+          confirmation
+        })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || result.error || 'Khôi phục thất bại.');
+      }
+
+      const counts = result.counts;
+
+      alert(
+        'Khôi phục dữ liệu thành công!\n\n' +
+        'Danh mục: ' + counts.categories + '\n' +
+        'Giao dịch: ' + counts.transactions + '\n' +
+        'Ngân sách: ' + counts.budgets + '\n' +
+        'Mục tiêu tiết kiệm: ' + counts.savingsGoals + '\n\n' +
+        'Bản sao lưu an toàn trước khi khôi phục: ' +
+        result.safetyBackup
+      );
+
+      window.location.reload();
+
+    } catch (error) {
+      alert('Lỗi: ' + error.message);
+      restoreButton.disabled = false;
+      restoreButton.innerHTML =
+        '<i class="bi bi-arrow-counterclockwise"></i> Khôi phục dữ liệu';
+    }
+  });
+})();
+</script>
+
+
 <%- include('../partials/footer') %>
